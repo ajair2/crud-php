@@ -310,11 +310,11 @@
 
 <div class="card">
   <div class="card-body">
-    <h5 class="card-title">Tabla</h5>
-    <p>Mantenimiento de producto</p>
+    <h5 class="card-title">Mantenimiento de producto</h5>
+    <p><button type="button" id="btn-nuevo" class="btn btn-success"><i class="bi bi-plus-circle"></i> Nuevo registro</button></p>    
 
     <!-- Table with producto rows -->
-    <table id="producto-data" class="table">
+    <table id="producto-data" class="table responsive" style="width: 100%;">
       <thead>
         <tr>
           <th scope="col">Nombre</th>
@@ -353,6 +353,9 @@
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
+  <!-- Modal mantenimiento -->
+  <?php require_once("modalmantenimiento.php"); ?>
+
   <!-- Vendor JS Files -->
   <script src="../../public/assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="../../public/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -368,6 +371,9 @@
 
   <!-- Template Main JS File -->
   <script src="../../public/assets/js/main.js"></script>
+
+  <!-- sweetalert2 -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <script type="text/javascript" src="mntproducto.js"></script>
 

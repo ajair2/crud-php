@@ -1,6 +1,9 @@
 let tabla
 
 function init() {
+  $("#producto-form").on("submit", function(e) {
+    guardaryeditar(e)
+  })
 
 }
 
@@ -66,8 +69,72 @@ $(document).ready(function(){
     iDisplayLength: 5,
     order: [[0, 'desc']]
     //
-  }).DataTable();
-});
+  }).DataTable()
+})
 
+function guardaryeditar(e) {
+  // Prevenir que se de doble click en boton guardar
+  e.preventDefault()
+
+  let formData = new FormData($("#producto-form")[0])
+
+  $.ajax({
+    url: "../../controllers/ProductoController.php?op=guardaryeditar",
+    type: "POST",
+    data: formData,
+    contentType: false,
+    processData: false,
+    success: function(datos){
+      console.log(datos);
+      $('#producto-form')[0].reset();
+      $("#mantenimientoModal").modal('hide');
+      $('#producto-data').DataTable().ajax.reload();
+
+      swal.fire(
+          'Registro!',
+          'El registro correctamente.',
+          'success'
+      )
+    }
+  })
+}
+
+function editar(prod_id) {
+  console.log(prod_id)
+
+}
+
+function eliminar(prod_id) {
+  Swal.fire({
+    title: 'CRUD',
+    text: "Está seguro de Eliminar el producto?",
+    icon: 'error',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    cancelButtonText: "No",
+    confirmButtonText: 'Sí'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // console.log(prod_id)
+      $.post("../../controllers/ProductoController.php?op=eliminar", {prod_id:prod_id}, function (data) {
+        $('#producto-data').DataTable().ajax.reload()
+
+      })
+
+      Swal.fire(
+        'Eliminado!',
+        'El producto ha sido eliminado correctamente.',
+        'success'
+      )
+    }
+  })
+
+}
+
+$(document).on("click", "#btn-nuevo", function() {
+  $("#mdlTitulo").html("Nuevo Registro")
+  $("#mantenimientoModal").modal("show")
+})
 
 init()

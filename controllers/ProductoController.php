@@ -15,6 +15,7 @@
         $data[] = $sub_array;
       }
 
+      # estructura de datatables.js
       $results = array(
         "sEcho" => 1,
         "iTotalRecords" => count($data),
@@ -22,7 +23,36 @@
         "aaData" => $data
       );
       echo json_encode($results);
+      break;
 
+    case 'guardaryeditar':
+      $datos = $producto->getProductoXId((int) $_POST["prod_id"]);
+
+      if (empty($_POST["prod_id"])) {
+        if (is_array($datos) == true and count($datos) == 0) {
+          $producto->insertProducto($_POST["prod_name"]);
+        }
+      } else {
+        $producto->updateProducto($_POST["prod_id"],$_POST["prod_name"]);
+
+      }
+      break;
+
+    case 'mostrar':
+      $datos = $producto->getProductoXId($_POST["prod_id"]);
+
+      if (is_array($datos) == true and count($datos) > 0) {
+        foreach($datos as $row) {
+          $outout["prod_id"] = $row["pord_id"];
+          $outout["prod_name"] = $row["pord_name"];
+        }
+
+      } 
+
+      break;
+    
+    case 'eliminar':
+      $producto->deleteProducto($_POST["prod_id"]);
       break;
 
   }
