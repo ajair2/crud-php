@@ -37,7 +37,10 @@
               <table id="producto-data" class="table responsive" style="width: 100%;">
                 <thead>
                   <tr>
+                    <th scope="col">Categoría</th>
                     <th scope="col">Nombre</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Cantidad</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                   </tr>
